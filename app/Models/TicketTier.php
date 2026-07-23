@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class TicketTier extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'event_id', 'name', 'price', 'quantity',
+        'sales_channels', 'is_published', 'is_active',
+    ];
+
+    protected $casts = [
+        'sales_channels'=>'array',
+        'price'=>'decimal:2',
+        'is_active'=>'boolean',
+        'is_published'=>'boolean',
+    ];
+
+    public function event(): BelongsTo
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function scopeForEvent(Builder $query, int $eventId): Builder
+    {
+        return $query->where('event_id', $eventId);
+    }
+
+    public function scopeActive(Builder $query): Builder
+    {
+        return $query->where('is_active', true);
+    }
+
+    public function scopeAvailableOnChannel(Builder $query, string $channel): Builder
+    {
+        return $query->where( function (Builder $q) use ($channel){
+            $q->whereNull('sales_channels')
+                ->orWhereJsonContains('sales_channels', $channel);
+        });
+    }
+
+}
