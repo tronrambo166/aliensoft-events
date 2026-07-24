@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->group(function (Request $request) {
+Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('ticket-tiers', TicketTierController::class);
+
     Route::patch('ticket-tiers/{ticket_tier}/publish',
         [TicketTierController::class, 'publish']);
 });

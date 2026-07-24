@@ -15,6 +15,7 @@ class TicketTier extends Model
     public const ALLOWED_CHANNELS = [
         'web',
         'box_office',
+        'mobile',
     ];
 
     protected $fillable = [
