@@ -12,6 +12,11 @@ class TicketTier extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const ALLOWED_CHANNELS = [
+        'web',
+        'box_office',
+    ];
+
     protected $fillable = [
         'event_id', 'name', 'price', 'quantity',
         'sales_channels', 'is_published', 'is_active',
