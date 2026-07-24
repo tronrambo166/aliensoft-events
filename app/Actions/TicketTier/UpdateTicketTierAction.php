@@ -7,7 +7,6 @@ use App\Models\TicketTier;
 
 final class UpdateTicketTierAction
 {
-    //call $data = UpdateTicketTierData::factory()->withoutOptionalValues()->from($request);
     public function execute(TicketTier $ticketTier, UpdateTicketTierData $data): TicketTier
     {
         $attributes = $this->resolveUpdateAttributes($data);
