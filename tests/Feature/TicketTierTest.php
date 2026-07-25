@@ -115,7 +115,7 @@ it('filters ticket tiers by sales channel', function () {
     TicketTier::factory()->create([
         'event_id' => $event->id,
         'name' => 'Mobile',
-        'sales_channels' => ['mobile'],
+        'sales_channels' => ['box_office'],
     ]);
 
     $response = $this->getJson('/api/ticket-tiers?filter[channel]=web');

@@ -35,10 +35,6 @@ class TicketTierPolicy
     {
         return $user->hasPermissionTo('ticket-tier.delete');
     }
-
-    public function publish(User $user, TicketTier $ticketTier): bool
-    {
-        return $user->hasPermissionTo('ticket-tier.update');
-    }
+    
 
 }

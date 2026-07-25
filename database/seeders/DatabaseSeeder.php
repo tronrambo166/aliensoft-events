@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(TicketTierPermissionsSeeder::class);
+        $this->call(
+            TicketTierPermissionsSeeder::class,
+            UserSeeder::class,
+        );
     }
 }

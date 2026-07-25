@@ -11,10 +11,10 @@ use Spatie\LaravelData\Support\Validation\ValidationContext;
 class UpdateTicketTierData extends Data
 {
     public function __construct(
-        public string|Optional $name,
-        public float|Optional $price,
-        public int|Optional $quantity,
-        public array|Optional|null $sales_channels,
+        public string|Optional $name = new Optional(),
+        public float|Optional $price = new Optional(),
+        public int|Optional $quantity = new Optional(),
+        public array|Optional|null $sales_channels = new Optional(),
     ) {}
 
     public static function rules(ValidationContext $context): array

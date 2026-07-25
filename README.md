@@ -1,14 +1,16 @@
+# Ticket Tier API Assessment
+
 ## Assumptions
 
-- Permission names were not specified in the assessment, so I assumed the following Spatie permissions:
-  - `ticket-tier.view`
-  - `ticket-tier.create`
-  - `ticket-tier.update`
-  - `ticket-tier.delete`
-- The publish action reuses the `update` permission because publishing is treated as a state change of an existing ticket tier.
-- A `NULL` value for `sales_channels` means the ticket tier is available on all sales channels.
-- `event_id` is immutable after creation, so it cannot be updated.
-- `CreateTicketTierData` and `UpdateTicketTierData` are resolved after `$this->authorize(...)` to ensure authorization occurs before validation.
+- Permission names were not specified in the assessment, so I assumed:
+    - `ticket-tier.view`
+    - `ticket-tier.create`
+    - `ticket-tier.update`
+    - `ticket-tier.delete`
+- Publishing a ticket tier reuses the `update` permission.
+- `NULL` in `sales_channels` means the tier is available on all sales channels.
+- `event_id` is immutable after creation.
+- Data objects are resolved after `$this->authorize(...)` so authorization occurs before validation.
 
 ## Supported Query Parameters
 
@@ -19,38 +21,37 @@
 
 ## Setup & Run
 
-1. Install dependencies:
-
 ```bash
 composer install
-```
-
-2. Copy the environment file, configure your database credentials in `.env`, and generate the application key:
-
-```bash
 cp .env.example .env
 php artisan key:generate
 ```
 
-3. Run the migrations and seeders:
+Configure your database credentials in `.env`, then run:
 
 ```bash
 php artisan migrate
 php artisan db:seed
-```
-
-4. Start the application:
-
-```bash
 php artisan serve
 ```
 
-5. Run the test suite:
+## Tests
 
 ```bash
 php artisan test
 ```
 
-## Postman Collection
+## API Testing
 
-A Postman collection is included with the submission for testing all API endpoints.
+A Postman collection is included.
+
+Protected endpoints require a valid Sanctum Bearer token. Generate one via Tinker:
+
+```bash
+php artisan tinker
+```
+
+```php
+$user = App\Models\User::factory()->create();
+$user->createToken('postman')->plainTextToken;
+```
